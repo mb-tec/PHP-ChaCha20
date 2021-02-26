@@ -1,11 +1,15 @@
 {
-  "name": "leigh/chacha20",
+  "name": "mb-tec/chacha20",
   "homepage": "https://github.com/lt/PHP-ChaCha20",
   "description": "Pure PHP implementation of the ChaCha20 encryption algorithm.",
   "authors": [
     {
       "name": "Leigh",
       "homepage": "https://github.com/lt"
+    },
+    {
+      "name": "Matthias Büsing",
+      "homepage": "https://github.com/mb-tec"
     }
   ],
   "keywords": [
