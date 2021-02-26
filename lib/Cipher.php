@@ -10,12 +10,12 @@ class Cipher
             throw new \LengthException('Key must be a 256-bit string');
         }
 
-        if (strlen($nonce) !== 12) {
-            throw new \LengthException('Nonce must be a 96-bit string');
+        if (strlen($nonce) !== 8) {
+            throw new \LengthException('Nonce must be a 64-bit string');
         }
 
         $ctx = new Context();
-        $ctx->state = array_values(unpack('V16', "expand 32-byte k$key\0\0\0\0$nonce"));
+        $ctx->state = array_values(unpack('V16', "expand 32-byte k$key\0\0\0\0\0\0\0\0$nonce"));
 
         return $ctx;
     }
@@ -35,68 +35,68 @@ class Cipher
             $i = 10;
             while ($i--) {
                 $s04 = ((($c = $s04 ^ ($s08 += ($s12 = (((
-                          $c = $s12 ^ ($s00 += ($s04 = (((
-                          $c = $s04 ^ ($s08 += ($s12 = (((
-                          $c = $s12 ^ ($s00 +=  $s04) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s12 ^ ($s00 += ($s04 = (((
+                                                            $c = $s04 ^ ($s08 += ($s12 = (((
+                                                                            $c = $s12 ^ ($s00 +=  $s04) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s05 = ((($c = $s05 ^ ($s09 += ($s13 = (((
-                          $c = $s13 ^ ($s01 += ($s05 = (((
-                          $c = $s05 ^ ($s09 += ($s13 = (((
-                          $c = $s13 ^ ($s01 +=  $s05) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s13 ^ ($s01 += ($s05 = (((
+                                                            $c = $s05 ^ ($s09 += ($s13 = (((
+                                                                            $c = $s13 ^ ($s01 +=  $s05) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s06 = ((($c = $s06 ^ ($s10 += ($s14 = (((
-                          $c = $s14 ^ ($s02 += ($s06 = (((
-                          $c = $s06 ^ ($s10 += ($s14 = (((
-                          $c = $s14 ^ ($s02 +=  $s06) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s14 ^ ($s02 += ($s06 = (((
+                                                            $c = $s06 ^ ($s10 += ($s14 = (((
+                                                                            $c = $s14 ^ ($s02 +=  $s06) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s07 = ((($c = $s07 ^ ($s11 += ($s15 = (((
-                          $c = $s15 ^ ($s03 += ($s07 = (((
-                          $c = $s07 ^ ($s11 += ($s15 = (((
-                          $c = $s15 ^ ($s03 +=  $s07) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s15 ^ ($s03 += ($s07 = (((
+                                                            $c = $s07 ^ ($s11 += ($s15 = (((
+                                                                            $c = $s15 ^ ($s03 +=  $s07) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s05 = ((($c = $s05 ^ ($s10 += ($s15 = (((
-                          $c = $s15 ^ ($s00 += ($s05 = (((
-                          $c = $s05 ^ ($s10 += ($s15 = (((
-                          $c = $s15 ^ ($s00 +=  $s05) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s15 ^ ($s00 += ($s05 = (((
+                                                            $c = $s05 ^ ($s10 += ($s15 = (((
+                                                                            $c = $s15 ^ ($s00 +=  $s05) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s06 = ((($c = $s06 ^ ($s11 += ($s12 = (((
-                          $c = $s12 ^ ($s01 += ($s06 = (((
-                          $c = $s06 ^ ($s11 += ($s12 = (((
-                          $c = $s12 ^ ($s01 +=  $s06) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s12 ^ ($s01 += ($s06 = (((
+                                                            $c = $s06 ^ ($s11 += ($s12 = (((
+                                                                            $c = $s12 ^ ($s01 +=  $s06) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s07 = ((($c = $s07 ^ ($s08 += ($s13 = (((
-                          $c = $s13 ^ ($s02 += ($s07 = (((
-                          $c = $s07 ^ ($s08 += ($s13 = (((
-                          $c = $s13 ^ ($s02 +=  $s07) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s13 ^ ($s02 += ($s07 = (((
+                                                            $c = $s07 ^ ($s08 += ($s13 = (((
+                                                                            $c = $s13 ^ ($s02 +=  $s07) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
 
                 $s04 = ((($c = $s04 ^ ($s09 += ($s14 = (((
-                          $c = $s14 ^ ($s03 += ($s04 = (((
-                          $c = $s04 ^ ($s09 += ($s14 = (((
-                          $c = $s14 ^ ($s03 +=  $s04) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
-                                                      & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
-                                                      & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
-                                                      & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
+                                            $c = $s14 ^ ($s03 += ($s04 = (((
+                                                            $c = $s04 ^ ($s09 += ($s14 = (((
+                                                                            $c = $s14 ^ ($s03 +=  $s04) & 0xffffffff) << 16) & 0xffffffff) | $c >> 16))
+                                                                & 0xffffffff) << 12) & 0xffffffff) | $c >> 20))
+                                                & 0xffffffff) <<  8) & 0xffffffff) | $c >> 24))
+                                & 0xffffffff) <<  7) & 0xffffffff) | $c >> 25;
             }
 
             $keyStream .= pack('V16',
@@ -118,8 +118,12 @@ class Cipher
                 $s15 + $state[15]
             );
 
-            if (++$state[12] & 0xf00000000) {
-                throw new \OverflowException('Counter overflowed upper bound');
+            ++$state[12];
+            $state[12] &= 0xffffffff;
+
+            if ($state[12] == 0) {
+                ++$state[13];
+                $state[13] &= 0xffffffff;
             }
         }
 
